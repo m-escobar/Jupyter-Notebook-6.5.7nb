@@ -6,7 +6,9 @@ To run a Jupyter notebook from a docker:
 1 - clone the repo
 
 2 - from the folder run the commands below:
+
 a) `docker build -t jupyter-notebook .`
+
 b) `docker compose up -d`
 
 3 - to access the notebook go to your browser and access the address http://localhost:8888
