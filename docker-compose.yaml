@@ -1,0 +1,35 @@
+name: jupyter
+
+x-linux-server:
+  &linux-server
+  build:
+    context: .
+#    target: development
+  networks:
+    - infra
+
+services:
+  jupyter:
+    image: jupyter-notebook
+    container_name: jupyternb
+#    tty: true
+    networks:
+      infra:
+        ipv4_address: 10.6.0.3
+    volumes:
+      - ./work:/home
+    expose:
+      - 8888
+    ports:
+      - '8888:8888'
+    restart: unless-stopped
+    command: "jupyter notebook --ip 0.0.0.0 --allow-root --NotebookApp.token="
+
+networks:
+  infra:
+    name: devapi
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+          gateway: 10.6.0.1
